@@ -136,3 +136,12 @@ body{
     background-color: var(--button-hover);
     border-color: var(--button-hover);
 }
+
+.error{
+    color: #EEE;
+    text-align: center;
+}
+
+.titulo, .text {
+    margin-bottom: 1rem;
+}
