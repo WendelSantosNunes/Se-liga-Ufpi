@@ -1,0 +1,98 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block links %}
+    <link rel="stylesheet" href={% static 'css/home.css'%}>
+    <link rel="stylesheet" href={% static 'css/publicar.css'%}>
+    <title>Se Liga UFPI</title>
+
+{% endblock links %}  
+
+{% block main %}
+    
+<main class="container main-container">
+    <div class="container-content">
+        <div>
+            {% if request.user.is_authenticated %}    
+            <div class="title">
+                <h3>Publicação</h3>
+            </div>
+            <div class="container-contents">
+                <div>
+
+                    <form id="my-form" action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div>
+                            <label for="id_username">Título:</label>
+                            {{form.titulo}}
+                        </div>
+                        <div>
+                            <label for="id_tipo">*Tipo de Evento:</label>
+                            {{form.tipo}}
+                        </div>
+                        <div>
+                            <label for="id_public">*Público-alvo:</label>
+                            {{form.public}}
+                        </div>
+                        <div>
+                            <label for="id_data_evento">Data evento:</label>
+                            {{form.data_evento}}
+                        </div>
+                        <div id="profile-edit">
+                            <div>                            
+                                <label for="id_img">Foto:</label>
+                                <img src='../../media/{{object.img}}' alt="Foto do Perfil" id="profile-edit">
+                                <label for="img-clear_id">Modificar foto:</label><br>
+                            </div>
+    
+                            <input type="file" name="img" accept="image/*" id="id_img"> 
+                        </div>
+                        <div>
+                            <label for="id_descricao">*Descrição:</label>
+                            {{form.descricao}}
+                        </div>
+                       
+                        <div>
+                            <label for="id_custo">Custo:</label>
+                            {{form.custo}}
+                        </div>
+                        
+                        <div id="local">
+                            <label for="id_local">*Local:</label>
+                            {{form.local}}
+                        </div> 
+                        {% comment %} {{form.as_p}} {% endcomment %}
+                        
+                    </form>
+                    
+                    {% else %}
+
+                        <div class="error"> 
+                            <div class="titulo">         
+                                <h3>Ação não é permitida!</h3>
+                            </div>
+                            <div class="text">
+                                <p>Houve algum problema para processar a ação desejada ou você não tem permissão para isso.</p>
+                            </div>
+                            <div class="button-voltar">
+                                <a id="a" href={% url 'home' %}>Página home</a>
+                            </div>
+                        </div>
+                    
+                    {% endif %}
+                </div>
+            </div>
+            {% if request.user.is_authenticated %}
+            <div class="registrar">
+                <button form="my-form" type="submit">Salvar</button>
+            </div>
+            {% else %}
+                    
+            {% endif %}
+        </div>
+    </div>
+
+</main>  
+{% endblock main %}
+

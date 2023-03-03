@@ -1,0 +1,32 @@
+:root {
+    --white: #fff;
+    --background: #EEE;
+    --background-container: #393E46;
+    --button: #222831;
+    --button-hover: #00ADB5;
+    --words:#00ADB5;
+}
+
+input:focus {
+    outline: transparent;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, input, textarea, button {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+a {
+    text-decoration: none;
+}
+
+img{
+    width: 100%;
+}

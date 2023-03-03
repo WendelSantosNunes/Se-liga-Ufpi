@@ -1,0 +1,417 @@
+{% extends 'main/base.html' %}
+
+{% load static %} 
+
+{% block links %}
+    
+<link rel="stylesheet" href={% static 'css/home.css'%}>
+<title>Se Liga UFPI</title>
+
+{% endblock links %}  
+
+{% block search %}
+    <div class="search">
+        <ul>
+            <li>Visualizar por
+                <ul>                    
+                    <li class="pesq1"><a  href={% url 'pesquisa' %}>Eventos mais próximo</a></li>
+                    <li class="pesq2"><a  href={% url 'home' %}>Publicação mais recente</a></li>
+                </ul>
+            </li>
+                
+        </ul>
+    </div> 
+{% endblock search %}
+
+{% block main %}
+<main class="container-content">
+    <div class="content">    
+        {% if request.user.is_authenticated %}
+        <div id="container-aside">
+            <aside>
+                <div>
+                    <div class="information">
+                        <h2>Perfil</h2>
+                        <div class="img">
+                            <div>
+                                <img src='../media/{{user.img}}' alt="Perfil">
+                                <p>{{ user.username}}</p>
+                            </div>
+                            <h3>{{lis.titulo}}</h3>
+                        </div>
+                    </div>
+                    <div>
+                    <a href={% url 'editar' user.id %}>Editar Perfil</a>
+                    </div>
+                </div>
+            </aside>
+
+            <aside>
+                <div>
+                    <div class="information">
+                        <h2>Informação</h2>
+                    </div>
+                    <div>
+                    <a href={% url 'sobre' %}>Sobre</a>
+                    {% comment %} <a href='#'>Contato</a> {% endcomment %}
+                    </div>
+                </div>
+
+                <div>
+                    <div class="events">
+                        <h2>Eventos em destaque</h2>
+                    </div>
+                    <div>
+                        {% for lis in pesquisa %}
+                            {% if request.user.is_authenticated %}
+                                <a href={% url 'postagem' lis.id  %}>{{lis.titulo}}</a>
+                            {% endif %}
+                            
+                            {% empty %}
+                                <tr>
+                                    <td colspan="3">Nenhuma publicção em destaque</td>
+                                </tr>
+                        {% endfor %}
+                    </div>
+                </div>
+            </aside>
+        </div>
+        {% endif %}
+        <section>
+            {% if request.user.is_authenticated %}
+                <div class="publication">
+                    <div>
+                        <div>
+                            <a href={% url 'publicacao'%}>Publicar</a>
+                        </div>
+                    </div>    
+                </div>    
+            {% endif %}
+            {% comment %} {% endif %} {% endcomment %}
+            {% for lis in object_list %}
+            {% if request.user.is_authenticated %}
+                <article id="container-main">
+                    <div class="img">
+                        <div>
+                            <img src='../media/{{lis.usuario.get_img}}' alt="temporário">
+                            <p>{{ lis.usuario.username }}</p>
+                        </div>
+                        <div>
+                            <h3>{{lis.titulo}}</h3>
+                        </div>
+                    </div>
+
+                    <div class="publicationContainer">
+                        <div class="publicationText">
+                            <p>
+                                {{lis.descricao}}
+                            </p>
+                        </div>
+
+                        <div class="publicationImg">
+                            <img src={{lis.img.url}} alt="Foto do Evento">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="publication-inf">
+                        <div>
+                            <div>
+                                <h3>O que?</h3>
+                            </div>
+                            <p>{{lis.tipo}}</p>
+                        </div>
+                        <div>
+                            <div>
+                                <h3>De Quem?</h3>
+                            </div>
+                            <p>{{lis.usuario.curso}}</p>
+                        </div>
+                        <div>
+                            <div>
+                                <h3>Pra quem?</h3>
+                            </div>
+                            <p>{{lis.public}}</p>
+                        </div>
+                        <div>
+                            <div>
+                                <h3>Onde?</h3>
+                            </div>
+                            <p>{{lis.local}}</p>
+                        </div>
+                        <div>
+                            <div>
+                                <h3>Quando?</h3>
+                            </div>
+                            <p>{{lis.data_evento}}</p>
+                        </div>
+                        <div>
+                            <div>
+                                <h3>Valor?</h3>
+                            </div>
+                            <p>R$ {{lis.custo}}</p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="containerIntention">
+                        <div class="intention">
+                            <div>
+                                <div class="euVou{{lis.id}}">
+                                    <p>{{lis.number_of_euvou}}</p>
+                                </div>
+                                    <img src={% static 'img/thumbs-up.svg'%} alt="">
+                                {% csrf_token %}
+                                <button name="blogpost_id" value="{{lis.id}}" class="euvou" onclick="stopDefAction({{lis.id}},'euVou{{lis.id}}','toPensando{{lis.id}}')">
+                                    Eu vou
+                                </button>
+                            </div>
+                            <div>
+                                <div class="toPensando{{lis.id}}">
+                                    <p>{{lis.number_of_topensando}}</p>
+                                </div>
+                                <img src={% static 'img/happy.svg'%} alt="">
+                                {% csrf_token %}    
+                                <button name="blogpost_id" value="{{lis.id}}" class="topensando" onclick="stopDefAction1({{lis.id}},'euVou{{lis.id}}','toPensando{{lis.id}}')">
+                                    Tô pensando
+                                </button>
+                            </div>
+                        </div>
+                        <div class="option">
+                            {% if request.user.id == lis.usuario.id %}
+                            
+                            <div>
+                                <img src={% static 'img/pircel.svg'%} alt="Editar a publicação">
+                                <a href={% url 'editar-publicacao' lis.id  %}>Editar</a>
+                            </div>
+                            <div>
+                                <img src={% static 'img/alert-circle.svg'%} alt="Excluir uma publicação">
+                                <a href={% url 'excluir-publicacao' lis.id  %}>Excluir</a>
+                            </div>
+
+                            {% else %}
+                            
+                            <div>
+                                <img src={% static 'img/alert-circle.svg'%} alt="Excluir uma publicação">
+                                <a href={% url 'denuncia'  lis.id  %}>Denúncia</a>
+                            </div>
+                            {% endif %}
+                        </div> 
+                    </div>
+                </article> 
+                
+            {% else %} 
+            
+                <div class="notLogin">
+                <article id="container-main">
+                    <div class="img">
+                        <div>
+                            <img src='../media/{{lis.usuario.get_img}}' alt="temporário">
+                            <p>{{ lis.usuario.get_full_name }}</p>
+                        </div>
+                        <h3>{{lis.titulo}}</h3>
+                    </div>
+                    <div class="publicationContainer">
+                        <div class="publicationText">
+                            <p>
+                                {{lis.descricao}}
+                            </p>
+                        </div>
+
+                        <div class="publicationImg">
+                            <img src={{lis.img.url}} alt="Foto do Evento">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="publication-inf">
+                        <div>
+                            <div>
+                                <h3>O que?</h3>
+                            </div>
+                            <p>{{lis.tipo}}</p>
+                        </div>
+                        <div>
+                            <div>
+                                <h3>De Quem?</h3>
+                            </div>
+                            <p>{{lis.usuario.curso}}</p>
+                        </div>
+                        <div>
+                            <div>
+                                <h3>Pra quem?</h3>
+                            </div>
+                            <p>{{lis.public}}</p>
+                        </div>
+                        <div>
+                            <div>
+                                <h3>Onde?</h3>
+                            </div>
+                            <p>{{lis.local}}</p>
+                        </div>
+                        <div>
+                            <div>
+                                <h3>Quando?</h3>
+                            </div>
+                            <p>{{lis.data_evento}}</p>
+                        </div>
+                        <div>
+                            <div>
+                                <h3>Valor?</h3>
+                            </div>
+                            <p>R$ {{lis.custo}}</p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            {% endif %}
+
+            {% empty %}
+            <tr>
+                <td colspan="3">Nenhuma publicação cadastrada</td>
+            </tr>
+
+        {% endfor %}
+        </section>
+    </div>
+    {% for contact in contacts %}
+        <h1>{{contact}}</h1>
+    {# Each "contact" is a Contact model object. #}
+    {{ contact.full_name|upper }}<br>
+    ...
+    {% endfor %}        
+</main>
+{% endblock main %}
+
+{% block script %}
+{% comment %} <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> {% endcomment %}
+
+{% if request.user.is_authenticated %}
+
+<script>
+     
+    function stopDefAction(id,eu,to) {
+        let csrftoken = '{{ csrf_token }}'
+
+        eu = '.'+eu
+        to = '.'+to
+                
+        const dados = {
+            action: 'euvou'
+        }
+
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(dados),
+            data: {
+                action: 'euvou',
+            }, 
+            success: (response) => {
+                alert(response.message);
+            },
+            error: (response, error) => {
+                alert(response.responseText);
+            },
+            headers:{'X-CSRFToken':csrftoken, 'Content-Type': 'application/json'},
+            dataType: 'json',
+        }
+
+        fetch('/publicacao/blogpost-like/' + id,options).then(data => data.json()).then(function(response){
+
+            elemento = document.querySelector(eu)
+            elemento.innerHTML = response['value1']
+            elemento.classList.add(response['existe_euvou'])
+            elemento1 = document.querySelector(to)
+            elemento1.innerHTML = response['value2']
+        })
+        
+    }    
+
+
+    function stopDefAction1(id,eu,to) {
+        let csrftoken = '{{ csrf_token }}'
+        
+        eu = '.'+eu
+        to = '.'+to
+
+        const dados = {
+            action: 'topensando'
+        }
+
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(dados),
+            data: {
+                action: 'topensando',
+            },
+            success: (response) => {
+                alert(response.message);
+            },
+            error: (response, error) => {
+                alert(response.responseText);
+            }, 
+            headers:{ 'X-CSRFToken':csrftoken,'Content-Type': 'application/json'},
+            dataType: 'json',
+        }
+
+        fetch('/publicacao/blogpost-like/' + id,options).then(data => data.json()).then(function(response){
+            elemento = document.querySelector(eu)
+            elemento.innerHTML = response['value1']
+            elemento1 = document.querySelector(to)
+            elemento1.innerHTML = response['value2']
+        })
+    } 
+    
+
+
+    function estado(evt){
+
+        let csrftoken = '{{ csrf_token }}'
+
+        let select = document.querySelector('#estado')
+
+        console.log(select)
+    
+        const indice = select.selectedIndex
+        const valor = select.value
+        const text = select.options[indice].text
+    
+        console.log(indice, valor, text)
+        
+        const dados = {
+            pesquisa: indice
+        }
+
+        const options = {
+            method: 'GET',
+            //body: JSON.stringify(dados),
+            data: {
+                pesquisa: indice,
+            },
+            success: (response) => {
+                alert(response.message);
+            },
+            error: (response, error) => {
+                alert(response.responseText);
+            }, 
+            headers:{ 'X-CSRFToken':csrftoken,'Content-Type': 'application/json'},
+            dataType: 'json',
+        }
+
+        fetch('pesquisa',options).then(data => data).then(response => response)
+
+    }
+    
+    {% comment %} document.querySelector('#estado').addEventListener(
+        'click',estado, false
+    );  {% endcomment %}
+
+
+</script>
+{% endif %}
+
+{% endblock script %}

@@ -1,0 +1,63 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block links %}
+<link rel="stylesheet" href={% static 'css/home.css'%}>
+<link rel="stylesheet" href={% static 'css/denounce.css'%}>
+<title>Se Liga UFPI</title>
+
+{% endblock links %}    
+
+{% block main %}
+<main class="container">   
+    <div class="main-contents">
+        <div class="container-contents">
+            {% if request.user.is_authenticated %}
+                <div class="title">
+                    <h3>Denúncia</h3>
+                </div>    
+                <form action="" method="POST"  >
+                    {% csrf_token %}
+                    <label for="reasons">Motivos</label>
+
+                    <select name="reasons" id="reasons">
+
+                        <option value="Conteúdo Ofensivo">Conteúdo Ofensivo</option>
+
+                        <option value="Assédio ou Bullying">Assédio ou Bullying</option>
+
+                        <option value="Conteúdo Inadequado">Conteúdo Inadequado</option>
+
+                        <option value="Outros">Outros</option>
+
+                    </select>
+
+                    <div>
+                        <label for="mensagem" id="mensagem_label">Mensagem</label>
+                        {% comment %} <input type="texta" id="mensagem" name="mensagem" placeholder="mensagem"> {% endcomment %}
+                        <textarea name="mensagem" id="mensagem" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="enviar">
+                        <button type="submit">Enviar</button>
+                    </div>
+                </form>
+            
+            {% else %}
+                <div class="error"> 
+                    <div class="titulo">         
+                        <h3>ação não é permitida!</h3>
+                    </div>
+                    <div class="text">
+                        <p>Houve algum problema para processar a ação desejada ou você não tem permissão para isso.</p>
+                    </div>
+                    <div class="button-voltar">
+                        <a id="a" href={% url 'home' %}>Página home</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</main>
+
+{% endblock main %}

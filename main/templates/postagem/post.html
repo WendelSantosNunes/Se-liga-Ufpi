@@ -1,0 +1,194 @@
+{% extends 'main/base.html' %}
+
+{% load static %} 
+
+{% block links %}
+    
+<link rel="stylesheet" href={% static 'css/home.css'%}>
+<title>Se Liga UFPI</title>
+
+{% endblock links %}  
+
+{% block main %}
+<main class="container-content">
+    <div class="content">    
+        {% if request.user.is_authenticated %}
+        <section>
+                <div class="publication">
+                    <div>
+                        {% comment %} <h1>{{user.get_img}}</h1> {% endcomment %}
+                        {% comment %} <img src='media/{{user.get_img}}' alt=""> {% endcomment %}
+                        <div>
+                            <a href={% url 'publicacao'%}>Publicar</a>
+                        </div>
+                    </div>    
+                </div>    
+            {% endif %}
+            {% if request.user.is_authenticated %}
+                <article id="container-main">
+                    <div class="img">
+                        <div>
+                            <img src='../media/{{post.usuario.get_img}}' alt="temporário">
+                            <p>{{ post.usuario.username }}</p>
+                        </div>
+                        <h3>{{post.titulo}}</h3>
+                    </div>
+
+                    {% comment %} <div id="publication">
+                            <p>Publicado em</p>
+                            <strong>{{post.data_evento}}</strong>
+                    </div> {% endcomment %}
+                    <div class="publicationContainer">
+                        <div class="publicationText">
+                            <p>
+                                {{post.descricao}}
+                            </p>
+                        </div>
+
+                        <div class="publicationImg">
+                            <img src={{post.img.url}} alt="Foto do Evento">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="publication-inf">
+                        <div>
+                            <div>
+                                <h3>O que?</h3>
+                            </div>
+                            <p>{{post.tipo}}</p>
+                        </div>
+                        <div>
+                            <div>
+                                <h3>De Quem?</h3>
+                            </div>
+                            <p>{{post.usuario.curso}}</p>
+                        </div>
+                        <div>
+                            <div>
+                                <h3>Pra quem?</h3>
+                            </div>
+                            <p>{{post.public}}</p>
+                        </div>
+                        <div>
+                            <div>
+                                <h3>Onde?</h3>
+                            </div>
+                            <p>{{post.local}}</p>
+                        </div>
+                        <div>
+                            <div>
+                                <h3>Quando?</h3>
+                            </div>
+                            <p>{{post.data_evento}}</p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="containerIntention">
+                        <div class="intention">
+                            <div>
+                                <div class="euVou{{post.id}}">
+                                    {{post.number_of_euvou}}
+                                </div>
+                                <img src={% static 'img/thumbs-up.svg'%} alt="">
+                                {% csrf_token %}
+                                <button name="blogpost_id" value="{{post.id}}" class="euvou" onclick="stopDefAction({{post.id}},'euVou{{post.id}}','toPensando{{post.id}}')">
+                                    Eu vou
+                                </button>
+                            </div>
+                            <div>
+                                <div class="toPensando{{post.id}}">
+                                    {{post.number_of_topensando}}
+                                </div>
+                                <img src={% static 'img/happy.svg'%} alt="">
+                                {% csrf_token %}    
+                                <button name="blogpost_id" value="{{post.id}}" class="topensando" onclick="stopDefAction1({{post.id}},'euVou{{post.id}}','toPensando{{post.id}}')">
+                                    Tô pensando
+                                </button>
+                            </div>
+                        </div>
+                        <div class="option">
+                            {% if request.user.id == post.usuario.id %}
+                            
+                            <div>
+                                <img src={% static 'img/pircel.svg'%} alt="Editar a publicação">
+                                <a href={% url 'editar-publicacao' post.id  %}>Editar</a>
+                            </div>
+                            <div>
+                                <img src={% static 'img/alert-circle.svg'%} alt="Excluir uma publicação">
+                                <a href={% url 'excluir-publicacao' post.id  %}>Excluir</a>
+                            </div>
+
+                            {% else %}
+                            
+                            <div>
+                                <img src={% static 'img/alert-circle.svg'%} alt="Excluir uma publicação">
+                                <a href={% url 'denuncia'  post.id  %}>Denúncia</a>
+                            </div>
+                            {% endif %}
+                        </div> 
+                    </div>
+                </article>
+        
+            {% else %}
+
+                <article id="container-main">
+                    <div class="img">
+                        <div>
+                            <img src='media/{{post.usuario.get_img}}' alt="temporário">
+                            <p>{{ post.usuario.get_full_name }}</p>
+                        </div>
+                        <h3>{{post.titulo}}</h3>
+                    </div>
+                    <div class="publicationContainer">
+                        <div class="publicationText">
+                            <p>
+                                {{post.descricao}}
+                            </p>
+                        </div>
+
+                        <div class="publicationImg">
+                            <img src={{post.img.url}} alt="Foto do Evento">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="publication-inf">
+                        <div>
+                            <div>
+                                <h3>Organização?</h3>
+                            </div>
+                            <p>{{post.usuario.curso}}</p>
+                        </div>
+                        <div>
+                            <div>
+                                <h3>Quando?</h3>
+                            </div>
+                            <p>{{post.data_evento}}</p>
+                        </div>
+                        <div>
+                            <div>
+                                <h3>Pra quem?</h3>
+                            </div>
+                            <p>{{post.tipo}}</p>
+                        </div>
+                    </div>
+                </article>
+            
+            {% endif %}
+
+        </section>
+    </div>
+    {% for contact in contacts %}
+        <h1>{{contact}}</h1>
+    {# Each "contact" is a Contact model object. #}
+    {{ contact.full_name|upper }}<br>
+    ...
+    {% endfor %}        
+</main>
+{% endblock main %}
+</main>

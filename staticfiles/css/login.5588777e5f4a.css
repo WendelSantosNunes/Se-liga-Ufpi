@@ -1,0 +1,184 @@
+body{
+    background: var(--button);
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    min-width: 100vw;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background-color: var(--background-container);
+    width: 37.375rem;
+    margin: 0 0.625rem;
+    padding: 2.125rem 0 2.5rem 0 ;
+
+    border-radius: 0.625rem;
+    display: flex;
+    justify-content: center;
+}
+
+#main-contents {
+    max-width:  28.625rem;
+    width: 100%;
+}
+
+#container-contents form{
+    padding-top: 2.75rem;
+    font-size: 19px;
+}
+
+#container-contents #login{
+    text-align: center;
+    font-size: 1.875rem;
+    color: var(--white);
+}
+
+#container-contents label{
+    display: block;
+    padding-bottom: 0.75rem;
+    color: var(--white);
+}
+
+#container-contents p:nth-child(3) label{
+    padding-top: 15px;
+}
+
+#container-contents input{
+    width:  90%;
+    margin: 0 10px;
+    height: 2.25rem;
+    border: none;
+    border-radius: 10px;
+}
+
+
+#container-contents input:focus-within{
+    visibility: visible;
+    border: 3px solid var(--button-hover);
+}
+
+#container-contents input{
+    text-indent: 10px;
+}
+
+#container-contents #password{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 34px;
+}
+
+#container-contents #password a{
+    display: block;
+    margin: 0.875rem 0;
+    color: var(--white);
+}
+
+#container-contents form #passowrd:hover{
+    color: var(--button-hover);
+}
+
+#container-contents #enviar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#container-contents #enviar #a{
+    text-decoration: none;
+
+    max-width: 12.5rem;
+    width: 100%;
+    margin: 0 10px;
+    padding: 1rem 0;
+
+    
+    background-color: var(--button);
+    color: var(--background);
+    font-size: 1rem;
+    
+    border: 0.0625rem solid var(--button);
+    border-radius: 8px;
+    cursor: pointer;
+   
+    text-align: center;
+
+    font-size: 1.3rem;
+}
+
+#container-contents #enviar #a:hover{
+    border: 1px solid red;
+    background-color: red;
+}
+
+
+#container-contents button{
+    max-width: 12.5rem;
+    width: 100%;
+    margin: 0 10px;
+    padding: 1rem 0;
+    
+    align-self: center;
+
+    background-color: var(--button);
+    color: var(--white);
+
+    border: 0.0625rem solid var(--button);
+    border-radius: 8px;
+    cursor: pointer;
+
+    font-size: 1.3rem;
+}
+
+#container-contents button:hover{
+    background-color: var(--button-hover);
+    border-color: var(--button-hover);
+}
+
+#main-contents #container-contents .error{
+    color: var(--background);
+}
+
+
+#main-contents #container-contents .error .titulo{
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 2rem;
+}
+
+#main-contents #container-contents .error .button-voltar{
+    text-align: center;
+
+    max-width: 12.5rem;
+    width: 100%;
+    margin: 0 10px;
+    padding: 1rem 0;
+    
+    border: 0.0625rem solid var(--background);
+    border-radius: 8px;
+    cursor: pointer;
+
+    margin: 1rem auto 0 auto;
+    font-size: 1.3rem;
+}
+
+
+#main-contents #container-contents .error .button-voltar a{
+    color: var(--background);
+}
+
+#main-contents #container-contents .error .text {
+    margin-bottom: 2rem;
+}
+
+#main-contents #container-contents .error .text p{
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+#main-contents #container-contents .error .button-voltar:hover{
+    border: 1px solid var(--words);
+    background-color: var(--words);
+}

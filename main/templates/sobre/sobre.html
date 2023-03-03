@@ -1,0 +1,91 @@
+{% extends 'main/base.html' %}
+
+{% load static %} 
+
+{% block links %}
+
+<link rel="stylesheet" href={% static 'css/home.css'%}>
+<link rel="stylesheet" href={% static 'css/sobre.css'%}>
+<title>Se Liga UFPI</title>
+
+{% endblock links %}  
+
+{% block main %}
+<main class="container-content">    
+    <div class='part1'>
+        <div>
+            <div>
+                <p>
+                    Seja bem-vindo ao Se Lig@ UFPI!
+                </p>
+            </div>
+            <p> 
+                Um local de conexão para todos que fazem parte do 
+                Campus Senador Helvídio Nunes de Barros (CSHNB). 
+                Após a pandemia de COVID-19 juntamente com o 
+                retorno das aulas presenciais havia uma certa 
+                distância entre a comunidade acadêmica e o Se 
+                Lig@ UFPI veio para quebrar o gelo e aproximar as pessoas.
+            </p>
+        </div>
+        <img src={% static 'img/imagem1.png'%} alt="Imagem da UFPI">
+        <img src={% static 'img/imagem2.png'%} alt="Imagem da UFPI">
+    </div>
+    
+    <div class="part2">
+        <p>
+            O Se Lig@ UFPI foi criado como requisito na disciplina de Projeto e Desenvolvimento de Sistemas I (PDSI I)
+             do curso de Sistemas de Informação, sob orientação dos professores Flávio H. D. Araújo e Romuere R. V. Silva.
+             E foi desenvolvindo pelos estudantes Wendel S. Nunes, Eva L. A. Silva e Josean M. M. Rodrigues. 
+        </p>
+        <p>     
+            Vamos conhecer um pouco mais sobre nosso amado Campus!
+        </p>
+    </div>
+
+    <div class='part3'>
+        <img src={% static 'img/imagem3.png'%} alt="Imagem da UFPI">
+        <img src={% static 'img/imagem4.png'%} alt="Imagem da UFPI">
+    </div>
+
+    <div class='part4'>
+        <p>
+            O CSHNB foi criado no ano de 1982 com cinco cursos de licenciatura
+            com duração de dois anos e em 1984 houve a plenificação de alguns 
+            dos cursos. Contudo,  não existia documentação que comprovasse juridicamente 
+            a criação do Campus, a falta de espaço apropriado para as atividades 
+            acadêmicas, além do baixo índice de aprovação nos vestibulares fizeram com 
+            que o CSHNB fosse fechado, por unanimidade de votos no Conselho Universitário
+            da UFPI, em 25 de junho de 1987.
+        </p>
+
+        <p>
+            Entretanto, em 10 de junho de 1991 o Campus foi reaberto com dois cursos de 
+            Licenciatura Plena: Letras e Pedagogia- Habilitação em Magistério. Em 2006, 
+            após a adesão da UFPI ao Programa de Reestruturação e Expansão das Universidades 
+            - REUNI, foram implantados mais sete cursos (Administração, Ciências Biológicas,
+            Enfermagem, História, Matemática, Nutrição, Sistemas de Informação) e em 2013
+            foi instituído o Curso de Licenciatura em Educação do Campo/Ciências da Natureza-
+            LEDOC. Em 2006 foi a criação do Campus antes Campus do Junco que passou a ser 
+            CSHNB. Em 2016 foi criado o Curso de Medicina através do Programa do Governo
+            Federal “Mais Médicos”. 
+        </p>
+    </div>
+
+    <div class='part3'>
+        <img src={% static 'img/imagem5.png'%} alt="Imagem da UFPI">
+        <img src={% static 'img/imagem6.png'%} alt="Imagem da UFPI">
+    </div>
+
+    <div class="fontes">
+        <p>
+            Fontes: 
+        </p>
+        <div>
+            <a href="http://www.ufpi.br/sobre-picos" target="_blank"> História do CSHNB </a>
+            <a href="https://www.instagram.com/1berto_junior/?next=%2F" target="_blank"> Imagens by @1berto_junior </a>
+        </div>    
+    </div>
+</main>
+
+{% endblock main %}

@@ -1,0 +1,100 @@
+{% extends 'main/base.html' %}
+
+{% load static %} 
+
+{% block links %}
+    
+    <link rel="stylesheet" href={% static 'css/registrator.css'%}>
+    <title>Se Liga UFPI</title>
+
+{% endblock links %}  
+
+
+{% block header %}
+    
+{% endblock header %}  
+
+{% block main %}
+<main id='container'>
+    <div id="container-contents">
+        <div id="login">
+            <h3>Cadastro</h3>
+        </div>
+
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>
+                <label for="id_username">Nome:</label>
+                {{form.first_name}}
+            </div>
+
+            <div>
+                <label for="id_lastname">Sobrenome:</label>   
+                {{form.last_name}}
+            </div>
+            
+            <div>
+                <label for="id_username">Usuário:</label>   
+                {{form.username}}
+                <ul>
+                    <li class="requested">
+                        Requeridos. 15 caracteres ou menos. Letras, números e caracteres @/./+/-/_
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <label for="id_email">Email:</label>
+                <div>
+                    {{form.email}}
+                    <ul class="requested">
+                        <li>Email institucional UFPI</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div>
+                <label for="id_img">Foto:</label>
+                {{form.img}}
+            </div>
+
+            <div>
+                <label for="id_cpf">Cpf:</label>
+                {{form.cpf}} 
+            </div>
+
+            <div>
+                <label for="id_curso">Curso:</label>
+                {{form.curso}}
+            </div>
+            
+            <div class="centralizando">
+                <label for="id_data_nasc">Data de nascimento:</label>
+                {{form.data_nasc}}
+            </div>  
+            <div>
+                <label for="password1">Senha:</label>        
+                {{form.password1}}
+                <ul class="requested">
+                    <li>Sua senha não pode ser muito parecida com o resto das suas informações pessoais.</li>
+                    <li>Sua senha precisa conter pelo menos 8 caracteres.</li>
+                    <li>Sua senha não pode ser uma senha comumente utilizada.</li>
+                    <li>Sua senha não pode ser inteiramente numérica.</li>
+                </ul>
+            </div>
+            <div>        
+                <label for="password2">Confirmação de senha:</label>
+                {{form.password2}}
+            </div>
+            <div id="enviar">
+                <a id="a" href={% url 'home' %}>Voltar</a>
+                <button type="submit">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+</main>
+{% endblock main %}
+
+{% block footer %}
+
+{% endblock footer %}

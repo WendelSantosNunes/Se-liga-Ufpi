@@ -1,0 +1,102 @@
+{% load static %} 
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="shortcut icon" href={% static 'img/SL.png'%} type="image/png">
+
+    <link rel="stylesheet" href={% static 'css/global.css'%}>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    {% block links %}
+    
+    <title>Se Lig@ UFPI</title>
+
+    {% endblock links %}    
+</head>
+<body>    
+    {% block header %}
+        <header>
+            <div class="container media-header">
+                <div class="logo">
+                    <a href={% url 'home' %}>Se Lig@ UFPI</a>
+                </div>
+
+                {% block search %}
+                    {% comment %} <div class="search">
+                        <form action="">
+                            <select id="estado" name="estado" >
+                                <option value="x">Filtragem de conteúdo</option>
+                                <option value="SP">Publicação mais recente</option>
+                                <option value="RJ">Evento mais perto de realizar</option>
+                                <option value="PB">Evento já terminado</option>
+                            </select>
+                        </form>
+                    </div>     {% endcomment %}
+                {% endblock search %}
+
+        
+                {% if request.user.is_authenticated %}
+                    <div class="logout">                    
+                        <a href={% url 'logout' %}>
+                            Sair
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="user">
+                        <div class="login">
+                            <a href={% url 'login' %}>Entrar</a>
+                        </div>
+                        <div class="register">
+                            <a href={% url 'cadastrar' %}>Cadastrar</a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        
+
+        </header>
+    {% endblock header %}
+        
+    {% block main %}
+        
+        
+    {% endblock main %} 
+
+    
+    {% block footer %}
+        
+        <footer>
+            <div class="bordar">
+                <div class="container">
+                    <div class="container-footer-media">
+                        <div class="social">
+                            <img src="{% static 'img/instagram.svg'%}" alt="instagram">
+                            <img src="{% static 'img/youtube.svg'%}" alt="youtube">
+                            <img src="{% static 'img/twitter.svg'%}" alt="twitter">
+                            <img src="{% static 'img/email.svg'%}" alt="email">
+                        </div>
+                        <div class="container-footer-ufpi">
+                            <img src={% static 'img/ufpi.png'%} alt="UFPI">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-footer">      
+                <p>2022 @ Desenvolvido por estudantes da UFPI</p>
+            </div> 
+        </footer>
+
+    {% endblock footer %}
+</body>
+{% block script %}
+
+
+
+{% endblock script %}
+</html>

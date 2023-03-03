@@ -1,0 +1,118 @@
+{% extends 'main/base.html' %}
+
+{% load static %} 
+
+{% block links %}
+    
+    <link rel="stylesheet" href={% static 'css/registrator.css'%}>
+    <link rel="stylesheet" href={% static 'css/profile-edit.css'%}>
+    <title>Se Liga UFPI</title>
+
+{% endblock links %}  
+
+
+{% block header %}
+    
+{% endblock header %}  
+
+{% block main %}
+<main id='container'>
+    {% if request.user.is_authenticated %}
+    <div id="container-contents">
+        <div id="login">
+            <h3>Editar</h3>
+        </div>
+
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>
+                <label for="id_username">Nome:</label>
+                {{form.first_name}}
+            </div>
+
+            <div>
+                <label for="id_lastname">Sobrenome:</label>   
+                {{form.last_name}}
+            </div>
+            
+            <div>
+                <label for="id_username">Usuário:</label>   
+                {{form.username}}
+                <ul>
+                    <li class="requested">
+                        Requeridos. 15 caracteres ou menos. Letras, números e caracteres @/./+/-/_
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <label for="id_email">Email:</label>
+                <div>
+                    {{form.email}}
+                    <ul class="requested">
+                        <li>Email institucional UFPI</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="profile-img">
+                <label for="id_img">Foto:</label>
+                <img src='../../media/{{object.img}}' alt="Foto do Perfil" id="profile-edit">
+                {% comment %} {{form.img}}  {% endcomment %}
+                <label for="img-clear_id">Modificar foto:</label><br>
+                <input type="file" name="img" accept="image/*" id="id_img"> 
+            </div>
+
+            <div>
+                <label for="id_cpf">Cpf:</label>
+                {{form.cpf}} 
+            </div>
+
+            <div>
+                <label for="id_curso">Curso:</label>
+                {{form.curso}}
+            </div>
+            
+            <div class="centralizando">
+                <label for="id_data_nasc">Data de nascimento:</label>
+                {{form.data_nasc}}
+            </div>  
+            <div>
+                <label for="password1">Senha:</label>        
+                {{form.password1}}
+                <ul class="requested">
+                    <li>Sua senha não pode ser muito parecida com o resto das suas informações pessoais.</li>
+                    <li>Sua senha precisa conter pelo menos 8 caracteres.</li>
+                    <li>Sua senha não pode ser uma senha comumente utilizada.</li>
+                    <li>Sua senha não pode ser inteiramente numérica.</li>
+                </ul>
+            </div>
+            <div>        
+                <label for="password2">Confirmação de senha:</label>
+                {{form.password2}}
+            </div>
+            <div id="enviar">
+                <a id="a" href={% url 'home' %}>Voltar</a>
+                <button type="submit">Salvar</button>
+            </div>
+        </form>
+    </div>
+    {% else %}
+        <div class="error"> 
+            <div class="titulo">         
+                <h3>Ação não é permitida!</h3>
+            </div>
+            <div class="text">
+                <p>Houve algum problema para processar a ação desejada ou você não tem permissão para isso.</p>
+            </div>
+            <div class="button-voltar">
+                <a id="a" href={% url 'home' %}>Página home</a>
+            </div>
+        </div>
+    {% endif %}
+</main>
+{% endblock main %}
+
+{% block footer %}
+
+{% endblock footer %}
