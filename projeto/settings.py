@@ -29,7 +29,7 @@ DEBUG = True
 
 AUTH_USER_MODEL = 'conta.User'
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
