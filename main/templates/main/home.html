@@ -4,7 +4,7 @@
 
 {% block links %}
     
-<link rel="stylesheet" href={% static 'css/home.css'%}>
+<link rel="stylesheet" href={% static 'css/home.css' %}>
 <title>Se Liga UFPI</title>
 
 {% endblock links %}  
@@ -405,11 +405,6 @@
         fetch('pesquisa',options).then(data => data).then(response => response)
 
     }
-    
-    {% comment %} document.querySelector('#estado').addEventListener(
-        'click',estado, false
-    );  {% endcomment %}
-
 
 </script>
 {% endif %}
