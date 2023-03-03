@@ -157,8 +157,7 @@ main.container-content{
 }
 
 aside{
-    background-color: var(--button);
-    
+    background-color: var(--button);    
     margin-right: 3.875rem;
     margin-bottom: 1rem;
     max-width: 17rem;
@@ -380,8 +379,6 @@ aside:nth-child(1) div  h2::after {
 }
 
 
-/* footer */
-
 footer{
     background-color: var(--button);
     color: var(--background);
@@ -436,8 +433,6 @@ footer .container-footer{
 
     width: 90%;
 } 
-
-/* media */
 
 
 @media (max-width: 68.75rem){
